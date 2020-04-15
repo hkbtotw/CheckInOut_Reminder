@@ -11,7 +11,7 @@
 <p> Google Sheet is used to store check in-out data and application uses Dash to create UI </p>< br />
 
 
-<b>Sample Images:<br/></b>
+<b>Sample Images:</b><br />
 Web Application UI
 
 <p> Data on Google Sheet  </p>

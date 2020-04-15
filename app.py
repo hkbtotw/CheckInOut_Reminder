@@ -10,9 +10,11 @@ upTime=Update_Time()
 sheet=upTime.Authorization()
 
 # Title to appear at browser tab
-app.title = 'WFH Check In-Out Monitor'
+
 
 app = dash.Dash(external_stylesheets=[dbc.themes.BOOTSTRAP])
+
+app.title = 'WFH Check In-Out Monitor'
 
 app.layout=html.Div(id='dcc-all',
             style={'marginLeft': '1.5%', 'marginRight': '1.5%', 'marginBottom': '.5%'},

@@ -8,7 +8,7 @@
 <p> Web application logs check-in and check-out time by using each dedicated button. </p>
 <p> It also acts as a dashboard to remind users of checking in and out daily.</p> <br />
 
-<p> Google Sheet is used to store check in-out data and application uses Dash to create UI </p>< br />
+<p> Google Sheet is used to store check in-out data and application uses Dash to create UI </p>
 
 
 <b>Sample Images:</b><br />

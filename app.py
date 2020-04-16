@@ -20,7 +20,7 @@ app.layout=html.Div(id='dcc-all',
             children=[
                 html.Div(
                     id='refresh-button',
-                    style={'textAlign': 'center','width': '48.0%',  'backgroundColor': '#ffffff',
+                    style={'textAlign': 'center','width': '60.0%',  'backgroundColor': '#ffffff',
                                 'color': '#292929','marginLeft': '1.5%', 'marginRight': '1.5%', 'marginBottom': '4.5%', 'marginTop':'2.5%'},   
                     children=[
                     dbc.Button("Refresh", id='refresh',color='primary'), 
@@ -33,7 +33,7 @@ app.layout=html.Div(id='dcc-all',
                         children=[
                             html.Div(
                     id='Check-In-Update',
-                    style={'textAlign': 'center','width': '48.0%',  'marginTop': '2.5%','marginLeft': '1.5%',  'verticalAlign': 'top',
+                    style={'textAlign': 'center','width': '60.0%',  'marginTop': '2.5%','marginLeft': '1.5%',  'verticalAlign': 'top',
                                      'box-shadow':'0px 0px 10px #ededee', 'border': '1px solid #ededee',
                                      },
                     children=[
@@ -52,7 +52,7 @@ app.layout=html.Div(id='dcc-all',
                     ), 
                     html.Div(
                     id='Check-Out-Update',
-                    style={'textAlign': 'center','width': '48.0%', 'marginTop': '2.5%','marginLeft': '1.5%', 'verticalAlign': 'top',
+                    style={'textAlign': 'center','width': '60.0%', 'marginTop': '2.5%','marginLeft': '1.5%', 'verticalAlign': 'top',
                                      'box-shadow':'0px 0px 10px #ededee', 'border': '1px solid #ededee',
                                      },
                     children=[

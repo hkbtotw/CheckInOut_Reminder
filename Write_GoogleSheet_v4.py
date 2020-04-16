@@ -126,6 +126,8 @@ class Update_Time(object):
         return todayStr, nowDate, nowTime
 
     def ReadCurrentStatus(self,todayStr, nowDate, nowTime, sheet):
+        inTime=''
+        outTime=''
         lenRecords=len(sheet.get_all_values())
         print(" len : ",lenRecords)
         lastDate=sheet.cell(lenRecords,1).value
@@ -140,12 +142,16 @@ class Update_Time(object):
         else:
             col_index=colDict['Check_In']
             updStatus=sheet.cell(lenRecords,col_index).value
+            col_index=colDict['Time_In']
+            inTime=sheet.cell(lenRecords,col_index).value
             if(updStatus=="Yes"):
                 checkIn=1
             else:
                 checkIn=0
             col_index=colDict['Check_Out']
             updStatus=sheet.cell(lenRecords,col_index).value
+            col_index=colDict['Time_Out']
+            outTime=sheet.cell(lenRecords,col_index).value
             if(updStatus=="Yes"):
                 checkOut=1
             else:
@@ -154,6 +160,6 @@ class Update_Time(object):
 
         print(' cio : ', checkIn, ' ::' , checkOut)
 
-        return checkIn, checkOut
+        return checkIn, checkOut, inTime, outTime
 
 

@@ -82,21 +82,21 @@ app.layout=html.Div(id='dcc-all',
     [Input('refresh', 'n_clicks')])
 def update_output_div(n_clicks):
     todayStr, nowDate, nowTime=upTime.GetDateTime()
-    checkIn, checkOut=upTime.ReadCurrentStatus(todayStr, nowDate, nowTime, sheet)
+    checkIn, checkOut, inTime, outTime=upTime.ReadCurrentStatus(todayStr, nowDate, nowTime, sheet)
 
     if(checkIn==0):
         colorLabel1="danger"
         message1="Go Check In : "+todayStr+" !!!"
     else:
         colorLabel1="success"
-        message1="OK, Checked In at "+nowDate+", "+nowTime+" ." 
+        message1="OK, Checked In at "+nowDate+", "+inTime+" ." 
 
     if(checkOut==0):
         colorLabel2="danger"
         message2="Go Check Out : "+todayStr+" !!!"
     else:
         colorLabel2="success"
-        message2="OK, Checked In at "+nowDate+", "+nowTime+" ." 
+        message2="OK, Checked Out at "+nowDate+", "+outTime+" ." 
 
 
     card1=dbc.Alert(message1, color=colorLabel1),    

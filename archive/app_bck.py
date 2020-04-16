@@ -9,10 +9,11 @@ from Write_GoogleSheet_v4 import Update_Time
 upTime=Update_Time()
 sheet=upTime.Authorization()
 
+# Title to appear at browser tab
+
 
 app = dash.Dash(external_stylesheets=[dbc.themes.BOOTSTRAP])
 
-# Title to appear at browser tab
 app.title = 'WFH Check In-Out Monitor'
 
 app.layout=html.Div(id='dcc-all',
@@ -20,51 +21,44 @@ app.layout=html.Div(id='dcc-all',
             children=[
                 html.Div(
                     id='refresh-button',
-                    style={'textAlign': 'center','width': '48.0%',  'backgroundColor': '#ffffff',
+                    style={'textAlign': 'center', 'backgroundColor': '#ffffff',
                                 'color': '#292929','marginLeft': '1.5%', 'marginRight': '1.5%', 'marginBottom': '4.5%', 'marginTop':'2.5%'},   
                     children=[
+                    #html.Button('Refresh', id='refresh'),  
                     dbc.Button("Refresh", id='refresh',color='primary'), 
                     ]
                     ),             
-
-
+                    ## start container
+                    html.Div([
+                        dbc.Container(
+                        html.Div(id = 'graph-container')
+                                )
+                            ]),  ### container
                     html.Div( id='Update-button',
                     style={'marginLeft': '1.5%', 'marginRight': '1.5%', 'marginBottom': '.5%'},
                         children=[
                             html.Div(
                     id='Check-In-Update',
-                    style={'textAlign': 'center','width': '48.0%',  'marginTop': '2.5%','marginLeft': '1.5%',  'verticalAlign': 'top',
+                    style={'textAlign': 'center','width': '48.0%',  'marginTop': '2.5%','marginLeft': '1.5%', 'display': 'inline-block', 'verticalAlign': 'top',
                                      'box-shadow':'0px 0px 10px #ededee', 'border': '1px solid #ededee',
                                      },
                     children=[
-                                            ## start container
-                    html.Div([
-                        dbc.Container(
-                        html.Div(id = 'graph-container-1')
-                                )
-                            ]),  ### container
                     dbc.Button("Check-In", id='C-In-1',color='primary'), 
                     
                     html.Table([
-                        html.Tr([html.Td(' #Button Pressed : '), html.Td(id='tab-cin')]),
+                        html.Tr([html.Td('=>'), html.Td(id='tab-cin')]),
                         ]),
                     ]
                     ), 
                     html.Div(
                     id='Check-Out-Update',
-                    style={'textAlign': 'center','width': '48.0%', 'marginTop': '2.5%','marginLeft': '1.5%', 'verticalAlign': 'top',
+                    style={'textAlign': 'center','width': '48.0%', 'marginTop': '2.5%','marginLeft': '1.5%', 'display': 'inline-block', 'verticalAlign': 'top',
                                      'box-shadow':'0px 0px 10px #ededee', 'border': '1px solid #ededee',
                                      },
                     children=[
-                                            ## start container
-                    html.Div([
-                        dbc.Container(
-                        html.Div(id = 'graph-container-2')
-                                )
-                            ]),  ### container
                     dbc.Button("Check-Out", id='C-Out-1',color='primary'),
                     html.Table([
-                        html.Tr([html.Td(' #Button Pressed :'), html.Td(id='tab-cout')]),
+                        html.Tr([html.Td('=>'), html.Td(id='tab-cout')]),
                         ]),
                     ]
                     )
@@ -77,8 +71,7 @@ app.layout=html.Div(id='dcc-all',
             )  ### end
 
 @app.callback(
-    [Output('graph-container-1', component_property='children'),
-    Output('graph-container-2', component_property='children')],
+    Output('graph-container', component_property='children'),
     [Input('refresh', 'n_clicks')])
 def update_output_div(n_clicks):
     todayStr, nowDate, nowTime=upTime.GetDateTime()
@@ -89,28 +82,54 @@ def update_output_div(n_clicks):
         message1="Go Check In : "+todayStr+" !!!"
     else:
         colorLabel1="success"
-        message1="OK, Checked In at "+nowDate+", "+nowTime+" ." 
+        message1="Go RELAX."
 
     if(checkOut==0):
         colorLabel2="danger"
         message2="Go Check Out : "+todayStr+" !!!"
     else:
         colorLabel2="success"
-        message2="OK, Checked In at "+nowDate+", "+nowTime+" ." 
+        message2="Go RELAX."
 
 
     card1=dbc.Alert(message1, color=colorLabel1),    
-    
+    #card1 =[dbc.CardHeader("Check-In"),
+    #    dbc.CardBody(
+    #        [
+    #            html.H4("Status", className="card-title"),
+    #            html.P(                    
+    #                "Ha Ha Ha",
+    #                className="card-text",
+    #            ),
+    #        ]
+    #    ),
+    #]#### card1
     print(' C-In :: ',n_clicks)
     card2=dbc.Alert(message2, color=colorLabel2),
-    
+    #card2 = [ dbc.CardHeader("Check_Out"),
+    #    dbc.CardBody(
+    #        [
+    #            html.H4("Status", className="card-title"),
+    #            html.P(
+    #                "C-Out",
+    #                className="card-text",
+    #            ),
+    #        ]
+    #        ),
+    #] #### card2
     #cards=dbc.Row(
     #    [
-    #            dbc.Col(dbc.Card(card1, color=colorLabel1, inverse=True)),
-    #            dbc.Col(dbc.Card(card2, color=colorLabel2, inverse=True)),
+    #            dbc.Col(dbc.Card(card1, color="secondary", inverse=True)),
+    #            dbc.Col(dbc.Card(card2, color="secondary", inverse=True)),
     #    ])
+    cards=dbc.Row(
+        [
+                dbc.Col(dbc.Card(card1, color=colorLabel1, inverse=True)),
+                dbc.Col(dbc.Card(card2, color=colorLabel2, inverse=True)),
+        ])
 
-    return card1, card2
+    return cards
+
 @app.callback(
     Output('tab-cout', 'children'),
     [Input('C-Out-1', 'n_clicks')])

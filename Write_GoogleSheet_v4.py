@@ -3,6 +3,7 @@
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 from datetime import date, datetime
+import pytz
 
 colDict={
     'Date':1,
@@ -94,7 +95,7 @@ class Update_Time(object):
         print(" len : ",lenRecords)
         lastDate=sheet.cell(lenRecords,1).value
         print(' lastDate : ',lastDate)
-        if(todayStr == lastDate and len(sheet.cell(lenRecords,colDict['Time_In']).value)>1):
+        if(todayStr == lastDate and len(sheet.cell(lenRecords,colDict['Time_In']).value)>1 ):
             todayRow=lenRecords
             row_index=todayRow
             col_index=colDict['Time_Out']
@@ -108,9 +109,14 @@ class Update_Time(object):
             print('Not Updated')
 
     def GetDateTime(self):
-        today=date.today()
-        now=datetime.now()
+        todayUTC=datetime.today()
+        nowUTC=datetime.now()
         # dd/mm/YY H:M:S
+        to_zone = pytz.timezone('Asia/Bangkok')
+
+        today=todayUTC.astimezone(to_zone)
+        now=nowUTC.astimezone(to_zone)
+
         todayStr=today.strftime("%Y-%m-%d")
         nowDate = now.strftime("%Y-%m-%d")
         nowTime = now.strftime("%H:%M:%S")
